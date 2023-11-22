@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop_validade/_color/tela_gradiente.dart';
 import 'package:flutter_desktop_validade/tela_login.dart';
+import '../controller/login_controller.dart';
 
 class TelaCadastro extends StatefulWidget {
   const TelaCadastro({super.key});
@@ -11,13 +12,23 @@ class TelaCadastro extends StatefulWidget {
 
 class _TelaCadastroState extends State<TelaCadastro> {
   bool _showPassword = false;
-  final formkey = GlobalKey<FormState>();
+
+  var txtNome = TextEditingController();
+  var txtEmail = TextEditingController();
+  var txtSenha = TextEditingController();
+  var txtSetor = TextEditingController();
+  var txtCargo = TextEditingController();
+
+  void initState() {
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
-        key: formkey,
+        
         child: SingleChildScrollView(
           child: Container(
             height: MediaQuery.of(context).size.height,
@@ -74,6 +85,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                          width: 300,
                                          child: TextFormField(
                                            keyboardType: TextInputType.text,
+                                           controller: txtNome,
                                            decoration: const InputDecoration(
                                             labelText: "Nome",
                                             labelStyle: TextStyle(
@@ -82,11 +94,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                               fontSize: 20,
                                             ),
                                            ),
-                                           validator: (String ? value) {
-                                              if(value == null || value.isEmpty){
-                                               return 'Campo Obrigatório';
-                                              }
-                                            },
+                                           
                                            style: const TextStyle(fontSize: 20),
                                          ),
                                       ),
@@ -99,6 +107,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                          width: 300,
                                          child: TextFormField(
                                            keyboardType: TextInputType.text,
+                                           controller: txtSetor,
                                            decoration: const InputDecoration(
                                             labelText: "Setor",
                                             labelStyle: TextStyle(
@@ -107,11 +116,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                               fontSize: 20,
                                             ),
                                            ),
-                                           validator: (String ? value) {
-                                              if(value == null || value.isEmpty){
-                                               return 'Campo Obrigatório';
-                                              }
-                                            },
+                                          
                                            style: const TextStyle(fontSize: 20),
                                          ),
                                       ),
@@ -124,6 +129,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                          width: 300,
                                          child: TextFormField(
                                            keyboardType: TextInputType.text,
+                                           controller: txtCargo,
                                            decoration: const InputDecoration(
                                             labelText: "Cargo",
                                             labelStyle: TextStyle(
@@ -132,11 +138,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                               fontSize: 20,
                                             ),
                                            ),
-                                           validator: (String ? value) {
-                                              if(value == null || value.isEmpty){
-                                               return 'Campo Obrigatório';
-                                              }
-                                            },
+                                        
                                            style: const TextStyle(fontSize: 20),
                                          ),
                                       ),
@@ -149,6 +151,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                         width: 300,
                                         child: TextFormField(
                                           keyboardType: TextInputType.emailAddress,
+                                          controller: txtEmail,
                                           decoration: const InputDecoration(
                                             labelText: "E-mail",
                                             labelStyle: TextStyle(
@@ -157,18 +160,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                               fontSize: 20,
                                             ),
                                           ),
-                                          validator: (String ? value) {
-                                             if(value == null || value.isEmpty){
-                                              return 'E-mail Obrigatório';
-                                             }
-                                             if(value.length < 5){
-                                              return 'E-mail incorreto';
-                                             }
-                                             if(!value.contains("@")){
-                                              return 'E-mail inválido';
-                                             }
-                                              return null;
-                                          },
+                                       
                                           style: const TextStyle(fontSize: 20),
                                         ),
                                       ),
@@ -181,6 +173,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                         width: 300,
                                         child: TextFormField(
                                           keyboardType: TextInputType.text,
+                                          controller: txtSenha,
                                           obscureText: _showPassword == false ?  true : false,
                                           decoration: InputDecoration(
                                             labelText: "Senha",
@@ -201,15 +194,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                              },
                                             ),
                                           ),
-                                           validator: (String ? value) {
-                                              if(value == null || value.isEmpty){
-                                               return 'Senha Obrigatória';
-                                              }
-                                              if(value.length < 5){
-                                               return 'A senha deve conter pelo menos 5 caracteres';
-                                              }
-                                               return null;
-                                            },
+                                        
                                           style: const TextStyle(fontSize: 20),
                                         ),
                                       ),
@@ -239,7 +224,14 @@ class _TelaCadastroState extends State<TelaCadastro> {
                                           child: SizedBox.expand(
                                             child: TextButton(
                                               onPressed: (){
-                                                formkey.currentState?.validate();
+                                                 LoginController().criarConta(
+                                                   context,
+                                                   txtNome.text,
+                                                   txtEmail.text,
+                                                   txtSenha.text,
+                                                   txtCargo.text,
+                                                   txtSetor.text
+                                                 );
                                               }, 
                                               child: const Text(
                                                 "Cadastrar",

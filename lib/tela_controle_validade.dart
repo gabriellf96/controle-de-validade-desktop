@@ -35,6 +35,55 @@ class TelaControleValidade extends StatelessWidget {
             ],
           ),
         ),
+        child: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, index){
+            return const ListTile(
+
+              subtitle: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text('Lote - Produto X (Código do produto)', 
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                  ),
+                  ),
+                  Text('Loja - Serial da loja', 
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                  ),
+                  ),
+                  Text('Estoque - Quantidade', 
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                  ),
+                  ),
+                  Text('Data de validade - Data', 
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                  ),
+                  ),
+                  Text('Dias Restantes - Dias', 
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                  ),
+                  ),
+                ],
+              ),
+            );
+          }
+        ),
       ),
     );
   }

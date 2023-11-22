@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop_validade/_color/tela_gradiente.dart';
+import '../controller/login_controller.dart';
 
-class TelacadastroSenha extends StatelessWidget {
+class TelacadastroSenha extends StatefulWidget {
   const TelacadastroSenha({super.key});
 
+  @override
+  State<TelacadastroSenha> createState() => _TelacadastroSenhaState();
+}
+
+class _TelacadastroSenhaState extends State<TelacadastroSenha> {
+
+  var txtEmailEsqueceuSenha = TextEditingController();
+
+   void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -65,6 +77,7 @@ class TelacadastroSenha extends StatelessWidget {
                   width: 300,
                   child: TextFormField(
                     keyboardType: TextInputType.emailAddress,
+                    controller: txtEmailEsqueceuSenha,
                     decoration: const InputDecoration(
                       labelText: "E-mail",
                       labelStyle: TextStyle(
@@ -99,7 +112,12 @@ class TelacadastroSenha extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(1.2),
                     child: SizedBox.expand(
-                      child: TextButton(onPressed: (){}, 
+                      child: TextButton(onPressed: (){
+                        LoginController().esqueceuSenha(
+                          context,
+                          txtEmailEsqueceuSenha.text,
+                        );
+                      }, 
                       child: const Text(
                         "Enviar",
                         style: TextStyle(

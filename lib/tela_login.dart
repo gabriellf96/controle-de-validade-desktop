@@ -3,6 +3,7 @@ import 'package:flutter_desktop_validade/_color/tela_gradiente.dart';
 import 'package:flutter_desktop_validade/menu.dart';
 import 'package:flutter_desktop_validade/tela_cadastro.dart';
 import 'package:flutter_desktop_validade/tela_recuperarsenha.dart';
+import '../controller/login_controller.dart';
 
 
 class TelaLogin extends StatefulWidget {
@@ -15,9 +16,15 @@ class TelaLogin extends StatefulWidget {
 class _TelaLoginState extends State<TelaLogin> {
 
   bool _showPassword = false;
-  final emailkey = GlobalKey<FormFieldState>();
-  final senhakey = GlobalKey<FormFieldState>();
 
+  var txtEmail = TextEditingController();
+  var txtSenha = TextEditingController();
+  
+
+  void initState() {
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,8 +90,8 @@ class _TelaLoginState extends State<TelaLogin> {
                                   Container(
                                     width: 300,
                                     child: TextFormField(
-                                      key: emailkey,
                                       keyboardType: TextInputType.emailAddress,
+                                      controller: txtEmail,
                                       decoration: const InputDecoration(
                                         labelText: "E-mail",
                                         labelStyle: TextStyle(
@@ -93,18 +100,7 @@ class _TelaLoginState extends State<TelaLogin> {
                                           fontSize: 20,
                                         ),
                                       ),
-                                      validator: (String ? value) {
-                                         if(value == null || value.isEmpty){
-                                          return 'E-mail Obrigatório';
-                                         }
-                                         if(value.length < 5){
-                                          return 'E-mail incorreto';
-                                         }
-                                         if(!value.contains("@")){
-                                          return 'E-mail inválido';
-                                         }
-                                         return null;
-                                      },
+                                   
                                       style: const TextStyle(fontSize: 20),
                                     ),
                                   ),
@@ -116,8 +112,9 @@ class _TelaLoginState extends State<TelaLogin> {
                                   Container(
                                     width: 300,
                                     child: TextFormField(
-                                      key: senhakey,
+                                      
                                       keyboardType: TextInputType.text,
+                                      controller: txtSenha,
                                       obscureText: _showPassword == false ?  true : false,
                                       decoration: InputDecoration(
                                         labelText: "Senha",
@@ -138,15 +135,7 @@ class _TelaLoginState extends State<TelaLogin> {
                                           },
                                         ),
                                       ),
-                                      validator: (String ? value) {
-                                         if(value == null || value.isEmpty){
-                                          return 'Senha Obrigatória';
-                                         }
-                                         if(value.length < 5){
-                                          return 'A senha deve conter pelo menos 5 caracteres';
-                                         }
-                                         return null;
-                                      },
+                                   
                                       style: const TextStyle(fontSize: 20),
                                     ),
                                   ),
@@ -199,12 +188,14 @@ class _TelaLoginState extends State<TelaLogin> {
                                       child: SizedBox.expand(
                                         child: TextButton(
                                           onPressed: (){
-                                              emailkey.currentState?.validate();
-                                              senhakey.currentState?.validate();
-
-                                              Navigator.of(context).push(
-                                                MaterialPageRoute(builder: (context) => TelaMenu(),),
+                                              LoginController().login(
+                                                context,
+                                                txtEmail.text,
+                                                txtSenha.text,
                                               );
+                                              //Navigator.of(context).push(
+                                                //MaterialPageRoute(builder: (context) => TelaMenu(),),
+                                              //);
                                           }, 
                                           child: const Text(
                                             "Login",

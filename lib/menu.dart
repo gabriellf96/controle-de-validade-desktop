@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop_validade/_color/tela_gradiente.dart';
 import 'package:flutter_desktop_validade/tela_cadastro_produto.dart';
@@ -8,34 +11,51 @@ import 'package:flutter_desktop_validade/tela_login.dart';
 import 'package:flutter_desktop_validade/tela_rebaixa.dart';
 import 'package:flutter_desktop_validade/tela_relatorio_mobile.dart';
 import 'package:flutter_desktop_validade/tela_sobre.dart';
+import '../controller/login_controller.dart';
 
-class TelaMenu extends StatelessWidget {
+class TelaMenu extends StatefulWidget {
   const TelaMenu({super.key});
 
+  @override
+  State<TelaMenu> createState() => _TelaMenuState();
+}
+
+class _TelaMenuState extends State<TelaMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // foi usado um drawer que tem a função de criar um menu lateral
       drawer: Drawer(
         backgroundColor: Colors.white38,
-        
         child: ListView(
           padding: EdgeInsets.zero,
-          children:  [
+          children: [
             UserAccountsDrawerHeader(
-              accountName: const Text(
+              /*accountName: const Text(
                 "Usuário",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black
                 ),
-              ), 
-              accountEmail: const Text(
-                "exemplo@hotmail.com",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black
-                ),
+              ), */
+              accountName: FutureBuilder<String>(
+                future: LoginController().usuarioLogado(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Text(
+                      snapshot.data.toString(),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black),
+                    );
+                  }
+                  return const Text('');
+                },
+              ),
+
+              accountEmail: Text(
+                FirebaseAuth.instance.currentUser!.email.toString(),
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
               ),
               // aqui foi usado um "currentAccountPicture()" para criar um circulo e dentro dele coloquei um "ClipOval()",
               //onde possamos colocar uma imagem dentro do circulo
@@ -65,139 +85,145 @@ class TelaMenu extends StatelessWidget {
             ),
             //logo apos criei esses campos que vão ser as seções do menu
             ListTile(
-               title: const Text(
+              title: const Text(
                 "Sobre",
                 style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white
-                ),
-               ),
-               onTap: () {
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              onTap: () {
                 Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => TelaSobre(),),
-                    );
-               },
+                  MaterialPageRoute(
+                    builder: (context) => const TelaSobre(),
+                  ),
+                );
+              },
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-               title: const Text(
+              title: const Text(
                 "Cadastro dos Produtos",
                 style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white
-                ),
-               ),
-               onTap: () {
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              onTap: () {
                 Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => TelacadastroProduto(),),
-                    );
-               },
+                  MaterialPageRoute(
+                    builder: (context) => const TelacadastroProduto(),
+                  ),
+                );
+              },
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-               title: const Text(
+              title: const Text(
                 "Controle do Estoque",
                 style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white
-                ),
-               ),
-               onTap: () {
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              onTap: () {
                 Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => TelaControleEstoque(),),
-                    );
-               },
+                  MaterialPageRoute(
+                    builder: (context) => const TelaControleEstoque(),
+                  ),
+                );
+              },
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-               title: const Text(
+              title: const Text(
                 "Controle de Validade",
                 style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white
-                ),
-               ),
-               onTap: () {
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              onTap: () {
                 Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => TelaControleValidade(),),
-                    );
-               },
+                  MaterialPageRoute(
+                    builder: (context) => const TelaControleValidade(),
+                  ),
+                );
+              },
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-               title: const Text(
+              title: const Text(
                 "Rebaixa",
                 style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white
-                ),
-               ),
-               onTap: () {
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              onTap: () {
                 Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => TelaRebaixa(),),
-                    );
-               },
+                  MaterialPageRoute(
+                    builder: (context) => const TelaRebaixa(),
+                  ),
+                );
+              },
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-               title: const Text(
+              title: const Text(
                 "Relatório do Mobile",
                 style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white
-                ),
-               ),
-               onTap: () {
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              onTap: () {
                 Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => TelaRelatorioMobile(),),
-                    );
-               },
+                  MaterialPageRoute(
+                    builder: (context) => const TelaRelatorioMobile(),
+                  ),
+                );
+              },
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-               title: const Text(
+              title: const Text(
                 "Funcionário Mobile",
                 style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white
-                ),
-               ),
-               onTap: () {
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              onTap: () {
                 Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => TelaFuncionarioMobile(),),
-                    );
-               },
+                  MaterialPageRoute(
+                    builder: (context) => const TelaFuncionarioMobile(),
+                  ),
+                );
+              },
             ),
-            Divider(),
+            const Divider(),
             ListTile(
-               title: const Text(
+              title: const Text(
                 "Sair",
                 style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white
-                ),
-               ),
-               leading: Icon(Icons.exit_to_app),
-               onTap: () {
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+              leading: const Icon(Icons.exit_to_app),
+              onTap: () {
                 Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => TelaLogin(),),
-                    );
-               },
+                  MaterialPageRoute(
+                    builder: (context) => const TelaLogin(),
+                  ),
+                );
+              },
             ),
           ],
         ),
       ),
-      appBar: AppBar(
-        backgroundColor: Colors.white38
-      ),
+      appBar: AppBar(backgroundColor: Colors.white38),
       body: Container(
         //aqui e o degrade da tela inteira com o logo da nossa marca no meio da tela
         decoration: const BoxDecoration(
@@ -211,11 +237,7 @@ class TelaMenu extends StatelessWidget {
             ],
           ),
         ),
-        padding: const EdgeInsets.only(
-          top: 200,
-          left: 40,
-          right: 40
-        ),
+        padding: const EdgeInsets.only(top: 200, left: 40, right: 40),
         child: ListView(
           children: [
             SizedBox(

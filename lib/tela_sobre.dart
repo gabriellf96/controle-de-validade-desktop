@@ -119,10 +119,11 @@ class TelaSobre extends StatelessWidget {
                         Container(
                           child: const Center(
                             child: Text(
-                            "Este projeto está sendo desenvolvido no intuito de\n"
-                            "melhorar a logística de mercadorias com datas de\n"
-                            "validades podendo ter o controle total das mercadorias\n"
+                            "Este projeto está sendo desenvolvido no intuito  de"
+                            "melhorar a logística de mercadorias com datas  de"
+                            "validades podendo ter o controle total das  mercadorias"
                             "evitando desperdícios e perdas para a empresa",
+                            textAlign: TextAlign.justify,
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "587052104395",
+    "project_id": "controle-de-estoque-1d559",
+    "storage_bucket": "controle-de-estoque-1d559.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587052104395:android:0834d805f29cc1edcff94e",
+        "android_client_info": {
+          "package_name": "com.example.flutter_desktop_validade"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDN7Pf1xPVso8hMUYG-OH2Df6_Wh5rBQNk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
